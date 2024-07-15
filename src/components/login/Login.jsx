@@ -23,9 +23,23 @@ const Login = () => {
     }
   };
 
-  const handleLogin = (e) => {
+  const handleLogin = async(e) => {
     e.preventDefault();
-    // Add login logic here
+    setLoading(true)
+    const formData = new FormData(e.target);
+      const { email, password } = Object.fromEntries(formData);
+    try{
+      await signInWithEmailAndPassword(auth, email, password);
+    
+    }
+    catch(err){
+      console.log(err)
+      toast.error(err.message)
+
+    }
+    finally{
+      setLoading(false)
+    }
   };
 
   const handleRegister = async (e) => {
